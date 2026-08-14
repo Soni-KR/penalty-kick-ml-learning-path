@@ -64,6 +64,4 @@ Competition data is not redistributed in this repository. Download it from Kaggl
 
 The notebooks use stratified validation, fixed random seeds, leakage-safe preprocessing, and dataset fingerprints. Hidden test labels are not used for training or model selection. Any organizer-only, post-competition evaluation is clearly separated from the training workflow.
 
-## Final solution status
 
-Notebook 15 is a frozen, reproducible teaching solution. Its predictions were saved before the separate organizer evaluation. The next improvement stage should compare imbalance-handling and recall-oriented alternatives under validation before freezing another submission.
