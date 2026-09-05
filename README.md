@@ -1,6 +1,6 @@
 # Penalty Kick Outcome Prediction — A Beginner-Friendly ML Learning Path
 
-An end-to-end machine-learning course built around the [Penalty Kick Outcome Prediction Challenge](https://www.kaggle.com/competitions/penalty-kick-outcome-prediction-challenge).
+An end-to-end machine-learning course built around the [Penalty Kick Outcome Prediction Challenge](https://www.kaggle.com/t/cc8be9bbdd1c4bcfbc0cb217fd71aadf).
 
 Instead of showing only one high-scoring model, this repository explains the decisions that lead to a solution: exploring the data, building honest baselines, preprocessing safely, comparing alternatives, validating fairly, and interpreting the final model.
 
