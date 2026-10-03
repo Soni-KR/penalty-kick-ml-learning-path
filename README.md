@@ -14,7 +14,9 @@ Each chapter follows the same pattern:
 4. Briefly introduce additional alternatives with their advantages and disadvantages.
 5. Finish with the technical evidence and the theoretical reason for the decision.
 
-All notebooks include their saved Kaggle outputs. You can read the complete analysis directly on GitHub before running anything yourself.
+All notebooks include their saved Kaggle outputs. You can read the complete analysis directly on GitHub before running anything yourself. The setup and equivalent Python expressions have been simplified since those runs; the saved plots, tables, and scores are retained, rather than presented as a fresh execution.
+
+If you are new to Python, the [short code guide](PYTHON_QUICK_GUIDE.md) explains the syntax used throughout the chapters. Each notebook also explains its imports, target column, identifiers, and random seed beside the code.
 
 ## Learning path
 
@@ -48,20 +50,27 @@ The notebooks are self-contained and designed for Kaggle or Google Colab; local 
 3. Add the competition data as an input.
 4. Run all cells.
 
-The loaders look for:
+Every chapter uses one explicit folder and reads the two CSV files directly:
 
-```text
-/kaggle/input/competitions/penalty-kick-outcome-prediction-challenge
+```python
+DATA_DIR = "/kaggle/input/competitions/penalty-kick-outcome-prediction-challenge"
+
+train = pd.read_csv(f"{DATA_DIR}/train.csv")
+test = pd.read_csv(f"{DATA_DIR}/test.csv")
 ```
+
+`pd.read_csv` reads a CSV file as a table. Notebook 15 also reads `sample_submission.csv` to preserve the required submission format and ID order. If Kaggle lists your attached data under a different folder, copy that folder path from the Input panel into `DATA_DIR`.
 
 ### Colab
 
-Upload `train.csv` and `test.csv`, or the downloaded competition ZIP, to `/content` or `/content/data`, then run all cells.
+Extract the competition ZIP and upload `train.csv` and `test.csv` to `/content`. For Notebook 15, also upload `sample_submission.csv`. Change the notebook's `DATA_DIR` to `"/content"`, then run all cells. If you use a different upload folder, set `DATA_DIR` to that folder instead.
+
+The final save cells write files to `/kaggle/working`, which Kaggle shows in its Output panel. On Colab, change `results_dir` to `Path("/content/results")` in that cell. It creates the folder automatically.
 
 ## Data and reproducibility
 
 Competition data is not redistributed in this repository. Download it from Kaggle after accepting the competition rules.
 
-The notebooks use stratified validation, fixed random seeds, leakage-safe preprocessing, and dataset fingerprints. Hidden test labels are not used for training or model selection. Any organizer-only, post-competition evaluation is clearly separated from the training workflow.
+The notebooks use stratified validation, fixed random seeds, and preprocessing inside each validation fold. The later chapters also print a dataset fingerprint (a short version identifier for the training data). Hidden test labels are not used for training or model selection. Notebook 09's optional organizer audit is disabled by default and reads a private file only when the organizer explicitly sets its path after competition closure.
 
 
