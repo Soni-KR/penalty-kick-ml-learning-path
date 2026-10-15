@@ -2,10 +2,14 @@
 __pycache__/
 *.pyc
 
-# Competition data and organizer labels are not redistributed.
+# Competition data and hidden test answers are not redistributed.
 data/
 *.zip
 
 # Generated predictions and local runtime artifacts.
 results/
 submission*.csv
+.venv*/
+.jupyter/
+.matplotlib/
+execution_logs/
