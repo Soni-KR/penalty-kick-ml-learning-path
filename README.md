@@ -1,8 +1,126 @@
-# Penalty Kick Outcome Prediction — A Beginner-Friendly ML Learning Path
+# Penalty Kick ML Learning Path
 
-An ML learning path built around a [competition I created](https://www.kaggle.com/competitions/penalty-kick-outcome-prediction-challenge). Predict whether a penalty is **scored (1)** or **missed (0)**.
+Predict whether a football penalty is **scored (1)** or **missed (0)**. Learn the full ML workflow through **16 practical lessons**, built around a [competition I created](https://www.kaggle.com/competitions/penalty-kick-outcome-prediction-challenge).
 
-**Complete project:** [16 · Revised complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) — one fixed model, a reproducible training-only cutoff search, validation, and submission. An optional assumption-based cutoff example stays separate.
+**Dataset:** 20,000 labeled training kicks · 6,000 unlabeled test kicks.
+
+**Final CatBoost pipeline:** validation F1 **0.9414** · accuracy **0.9470** · ROC-AUC **0.9905**. These are validation results, not leaderboard scores. [Result details](#results).
+
+**Start with EDA:** [Read with outputs](notebooks/01_Exploratory_Data_Analysis.ipynb) · [Open in Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/01_Exploratory_Data_Analysis.ipynb) · [Get the Kaggle data](https://www.kaggle.com/competitions/penalty-kick-outcome-prediction-challenge/data)
+
+**See the full project:** [Complete pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) · [Open in Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/16_Complete_ML_Pipeline.ipynb) · [Learning roadmap](notebooks/00_Learning_Roadmap.ipynb)
+
+To run in Colab: upload `train.csv` and `test.csv`, set `DATA_DIR = "/content"`, then run all cells. For the final pipeline, also set `OUTPUT_DIR = "/content"`. [Full setup guide](#running-the-notebooks).
+
+![Eight models compared using training cross-validation F1; CatBoost performs best in this comparison.](assets/model-comparison.png)
+
+*Preview from [Lesson 10](notebooks/10_Model_Comparison.ipynb): training cross-validation before tuning, not the final validation score above.*
+
+## Learning path
+
+| # | Notebook | Main question | Open in browser |
+|---:|---|---|---|
+| 00 | [Learning roadmap](notebooks/00_Learning_Roadmap.ipynb) | How is the course organized? | Read the roadmap |
+| 01 | [Exploratory data analysis](notebooks/01_Exploratory_Data_Analysis.ipynb) | What is in the data, and which issues require later decisions? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/01_Exploratory_Data_Analysis.ipynb) |
+| 02 | [Baselines and validation](notebooks/02_Baselines_and_Validation.ipynb) | What must a useful model beat, and how are scores calculated honestly? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/02_Baselines_and_Validation.ipynb) |
+| 03 | [Missing values and scaling](notebooks/03_Missing_Values_and_Scaling.ipynb) | How should incomplete and differently scaled features be handled? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/03_Missing_Values_and_Scaling.ipynb) |
+| 04 | [Categorical encoding](notebooks/04_Categorical_Encoding.ipynb) | How can text categories become model inputs without leakage? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/04_Categorical_Encoding.ipynb) |
+| 05 | [Feature engineering](notebooks/05_Feature_Engineering.ipynb) | Which domain relationships can be expressed more clearly? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/05_Feature_Engineering.ipynb) |
+| 06 | [Feature selection](notebooks/06_Feature_Selection.ipynb) | Which features contain useful signal, and which may be distractions? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/06_Feature_Selection.ipynb) |
+| 07 | [Dimensionality reduction](notebooks/07_Dimensionality_Reduction.ipynb) | Can many encoded inputs be compressed without losing useful information? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/07_Dimensionality_Reduction.ipynb) |
+| 08 | [Outlier handling](notebooks/08_Outlier_Handling.ipynb) | Are unusual observations errors, noise, or informative hard cases? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/08_Outlier_Handling.ipynb) |
+| 09 | [Class imbalance](notebooks/09_Class_Imbalance.ipynb) | Can resampling or class weights improve minority-class prediction? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/09_Class_Imbalance.ipynb) |
+| 10 | [Model comparison](notebooks/10_Model_Comparison.ipynb) | Which model family best fits this tabular problem? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/10_Model_Comparison.ipynb) |
+| 11 | [Hyperparameter optimization](notebooks/11_Hyperparameter_Optimization.ipynb) | How can model settings be tuned without overfitting validation? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/11_Hyperparameter_Optimization.ipynb) |
+| 12 | [Ensembling](notebooks/12_Ensembling.ipynb) | Can complementary models improve one another? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/12_Ensembling.ipynb) |
+| 13 | [Calibration and thresholds](notebooks/13_Calibration_and_Thresholds.ipynb) | Are probabilities reliable, and should the cutoff remain 0.5? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/13_Calibration_and_Thresholds.ipynb) |
+| 14 | [Interpretation and error analysis](notebooks/14_Interpretation_and_Error_Analysis.ipynb) | Why does the model make its predictions and mistakes? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/14_Interpretation_and_Error_Analysis.ipynb) |
+| 15 | [Original selected pipeline: short version](notebooks/15_Final_Frozen_Solution.ipynb) | How do we refit and export the original lesson recipe? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/15_Final_Frozen_Solution.ipynb) |
+| 16 | [Revised complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) | How do we select a training-only cutoff, validate, refit and export the revised recipe? | [Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/16_Complete_ML_Pipeline.ipynb) |
+
+Lesson comparisons stay within the training part. They are teaching experiments, not independent final performance claims.
+Outlier plots flag unusual values; they do not prove errors. Balancing is tested, not assumed helpful for the mild 55/45 imbalance.
+
+## Running the notebooks
+
+Each notebook runs independently. No earlier notebook or extra project module is required.
+
+### Colab — no clone needed
+
+1. Open [EDA in Colab](https://colab.research.google.com/github/Soni-KR/penalty-kick-ml-learning-path/blob/main/notebooks/01_Exploratory_Data_Analysis.ipynb), or choose **Colab** beside any lesson above. Sign in to run it.
+2. Download `train.csv` and `test.csv` from the [Kaggle competition](https://www.kaggle.com/competitions/penalty-kick-outcome-prediction-challenge/data) after accepting its rules.
+3. Upload both files through Colab's **Files** panel. Set `DATA_DIR = "/content"` in Setup.
+4. For Notebooks 15/16, also set `OUTPUT_DIR = "/content"`. Run the cells from top to bottom; see the library notes below if an import is missing.
+
+If GitHub import fails, download the `.ipynb` from GitHub and use **File → Upload notebook** in Colab. Uploaded data is temporary and must be added again after a runtime reset. [Colab help](https://research.google.com/colaboratory/faq.html#using-colab).
+
+### Kaggle
+
+1. Join the competition and accept its rules.
+2. Download the lesson's `.ipynb` from GitHub. Create a Kaggle notebook, then use **File → Import Notebook**.
+3. Add the competition data as an input.
+4. Set `DATA_DIR` to the path below. For Notebooks 15/16, set `OUTPUT_DIR = "/kaggle/working"`. Run all cells.
+
+Set the single input folder:
+
+```text
+/kaggle/input/competitions/penalty-kick-outcome-prediction-challenge
+```
+
+### Local / VS Code
+
+1. Put `train.csv` and `test.csv` in a `data/` folder at the repository root.
+2. Create a virtual environment and install the requirements:
+
+   ```powershell
+   python -m venv .venv
+   .venv\Scripts\python -m pip install -r requirements.txt
+   ```
+
+   Earlier saved lessons used Python 3.12.14 and the pinned versions in `requirements.txt`. Notebook 16's latest Kaggle run used Python 3.13.15; its actual library versions are recorded in the notebook metadata.
+
+3. Open a notebook, select that environment, and run all cells. Use `notebooks/` as the working directory.
+4. Notebooks 15 and 16 save predictions to the ignored `results/` folder.
+
+### Extra libraries in hosted runtimes
+
+Lessons 10–16 can use XGBoost/CatBoost; Lesson 11 also uses Optuna. If your Kaggle/Colab kernel does not have them, run this in a new notebook cell before the imports:
+
+```python
+%pip install xgboost==3.4.1 catboost==1.2.10 optuna==5.0.0 ipywidgets==8.1.9
+```
+
+For local use, install `requirements.txt` inside your virtual environment instead. Native CatBoost category handling is an alternative; these saved comparisons use the same prepared inputs for every model.
+
+## Results
+
+<!-- RESULTS_START -->
+Rerun on 15 October 2026. These are the measured model-comparison results from Lesson 10, before tuning and ensembling.
+
+| Model | Cross-validation F1 | Accuracy | ROC-AUC |
+|---|---:|---:|---:|
+| CatBoost | 0.944 | 0.950 | 0.991 |
+| Gradient boosting | 0.942 | 0.948 | 0.990 |
+| XGBoost | 0.940 | 0.947 | 0.990 |
+| Random forest | 0.927 | 0.935 | 0.984 |
+| Extra trees | 0.926 | 0.934 | 0.984 |
+| Logistic regression | 0.899 | 0.910 | 0.967 |
+| Decision tree | 0.878 | 0.891 | 0.957 |
+| RBF support vector machine | 0.872 | 0.886 | 0.957 |
+
+**Original recipe (Notebook 15):** CatBoost with fixed settings `{'learning_rate': 0.1, 'depth': 6}` (chosen in Lesson 11 by random search); single model; original probabilities; cutoff 0.50.
+
+Original recipe on the 4,000-row validation set: **F1 0.9395**, **accuracy 0.9457**, **ROC-AUC 0.9901**. This is not a Kaggle leaderboard score.
+
+**Revised complete pipeline (Notebook 16), complete Kaggle run on 16 October 2026:** keep and impute incomplete rows; training-selected cutoff **0.47**. Training out-of-fold F1 at the selected cutoff: **0.9476** (a selection score, not independent evaluation). On the same validation rows: **F1 0.9414**, **accuracy 0.9470**, **ROC-AUC 0.9905**. These rows have been inspected before, so this rerun is not a fresh independent benchmark.
+
+Notebook 16 ends with an optional **50% expected-goal-rate example**. It labels the upper half of test probabilities as goals. This is an assumption, not a rate measured from the unlabeled test file or selected by training validation. Use such an adjustment only with a credible, independent reason for the expected rate. Otherwise, keep the training-selected cutoff. This example changes predictions, not the model or its probabilities, and is not ordinary class balancing.
+
+Notebook 16 saves its two prediction files to the ignored `results/pipeline_update/` folder. Both passed 6,000-row, ID-order, and binary-label checks. Validation metrics above describe only the standard training-selected cutoff.
+<!-- RESULTS_END -->
+
+Cross-validation scores help choose the model, so the winning search score is optimistic. The separate validation set checks only the chosen pipeline; this is not a Kaggle leaderboard score.
+The dataset was explored in earlier project versions. This split protects the rerun's selection procedure; it is not a claim that these rows were never seen historically.
 
 ## What makes this beginner-friendly?
 
@@ -98,107 +216,6 @@ These are two deliberately different recipes, not interchangeable copies:
 
 A winning step is best in its particular comparison, not a guarantee of the globally best combination; small score gaps may be noise.
 
-## Results
-
-<!-- RESULTS_START -->
-Rerun on 15 October 2026. These are the measured model-comparison results from Lesson 10, before tuning and ensembling.
-
-| Model | Cross-validation F1 | Accuracy | ROC-AUC |
-|---|---:|---:|---:|
-| CatBoost | 0.944 | 0.950 | 0.991 |
-| Gradient boosting | 0.942 | 0.948 | 0.990 |
-| XGBoost | 0.940 | 0.947 | 0.990 |
-| Random forest | 0.927 | 0.935 | 0.984 |
-| Extra trees | 0.926 | 0.934 | 0.984 |
-| Logistic regression | 0.899 | 0.910 | 0.967 |
-| Decision tree | 0.878 | 0.891 | 0.957 |
-| RBF support vector machine | 0.872 | 0.886 | 0.957 |
-
-**Original recipe (Notebook 15):** CatBoost with fixed settings `{'learning_rate': 0.1, 'depth': 6}` (chosen in Lesson 11 by random search); single model; original probabilities; cutoff 0.50.
-
-Original recipe on the 4,000-row validation set: **F1 0.9395**, **accuracy 0.9457**, **ROC-AUC 0.9901**. This is not a Kaggle leaderboard score.
-
-**Revised complete pipeline (Notebook 16), complete Kaggle run on 16 October 2026:** keep and impute incomplete rows; training-selected cutoff **0.47**. Training out-of-fold F1 at the selected cutoff: **0.9476** (a selection score, not independent evaluation). On the same validation rows: **F1 0.9414**, **accuracy 0.9470**, **ROC-AUC 0.9905**. These rows have been inspected before, so this rerun is not a fresh independent benchmark.
-
-Notebook 16 ends with an optional **50% expected-goal-rate example**. It labels the upper half of test probabilities as goals. This is an assumption, not a rate measured from the unlabeled test file or selected by training validation. Use such an adjustment only with a credible, independent reason for the expected rate. Otherwise, keep the training-selected cutoff. This example changes predictions, not the model or its probabilities, and is not ordinary class balancing.
-
-Notebook 16 saves its two prediction files to the ignored `results/pipeline_update/` folder. Both passed 6,000-row, ID-order, and binary-label checks. Validation metrics above describe only the standard training-selected cutoff.
-<!-- RESULTS_END -->
-
-Cross-validation scores help choose the model, so the winning search score is optimistic. The separate validation set checks only the chosen pipeline; this is not a Kaggle leaderboard score.
-The dataset was explored in earlier project versions. This split protects the rerun's selection procedure; it is not a claim that these rows were never seen historically.
-
-## Learning path
-
-| # | Notebook | Main question |
-|---:|---|---|
-| 00 | [Learning roadmap](notebooks/00_Learning_Roadmap.ipynb) | How is the course organized? |
-| 01 | [Exploratory data analysis](notebooks/01_Exploratory_Data_Analysis.ipynb) | What is in the data, and which issues require later decisions? |
-| 02 | [Baselines and validation](notebooks/02_Baselines_and_Validation.ipynb) | What must a useful model beat, and how are scores calculated honestly? |
-| 03 | [Missing values and scaling](notebooks/03_Missing_Values_and_Scaling.ipynb) | How should incomplete and differently scaled features be handled? |
-| 04 | [Categorical encoding](notebooks/04_Categorical_Encoding.ipynb) | How can text categories become model inputs without leakage? |
-| 05 | [Feature engineering](notebooks/05_Feature_Engineering.ipynb) | Which domain relationships can be expressed more clearly? |
-| 06 | [Feature selection](notebooks/06_Feature_Selection.ipynb) | Which features contain useful signal, and which may be distractions? |
-| 07 | [Dimensionality reduction](notebooks/07_Dimensionality_Reduction.ipynb) | Can many encoded inputs be compressed without losing useful information? |
-| 08 | [Outlier handling](notebooks/08_Outlier_Handling.ipynb) | Are unusual observations errors, noise, or informative hard cases? |
-| 09 | [Class imbalance](notebooks/09_Class_Imbalance.ipynb) | Can resampling or class weights improve minority-class prediction? |
-| 10 | [Model comparison](notebooks/10_Model_Comparison.ipynb) | Which model family best fits this tabular problem? |
-| 11 | [Hyperparameter optimization](notebooks/11_Hyperparameter_Optimization.ipynb) | How can model settings be tuned without overfitting validation? |
-| 12 | [Ensembling](notebooks/12_Ensembling.ipynb) | Can complementary models improve one another? |
-| 13 | [Calibration and thresholds](notebooks/13_Calibration_and_Thresholds.ipynb) | Are probabilities reliable, and should the cutoff remain 0.5? |
-| 14 | [Interpretation and error analysis](notebooks/14_Interpretation_and_Error_Analysis.ipynb) | Why does the model make its predictions and mistakes? |
-| 15 | [Original selected pipeline: short version](notebooks/15_Final_Frozen_Solution.ipynb) | How do we refit and export the original lesson recipe? |
-| 16 | [Revised complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) | How do we select a training-only cutoff, validate, refit and export the revised recipe? |
-
-Lesson comparisons stay within the training part. They are teaching experiments, not independent final performance claims.
-Outlier plots flag unusual values; they do not prove errors. Balancing is tested, not assumed helpful for the mild 55/45 imbalance.
-
-## Running the notebooks
-
-The notebooks are self-contained. No generic folder search, ZIP loader, or extra project modules are required.
-
-### Local / VS Code
-
-1. Put `train.csv` and `test.csv` in a `data/` folder at the repository root.
-2. Create a virtual environment and install the requirements:
-
-   ```powershell
-   python -m venv .venv
-   .venv\Scripts\python -m pip install -r requirements.txt
-   ```
-
-   Earlier saved lessons used Python 3.12.14 and the pinned versions in `requirements.txt`. Notebook 16's latest Kaggle run used Python 3.13.15; its actual library versions are recorded in the notebook metadata.
-
-3. Open a notebook, select that environment, and run all cells. Use `notebooks/` as the working directory.
-4. Notebooks 15 and 16 save predictions to the ignored `results/` folder.
-
-### Kaggle
-
-1. Join the competition and accept its rules.
-2. Open or import a notebook from this repository.
-3. Add the competition data as an input.
-4. Change `DATA_DIR` to the path below and run all cells. For exports in 15/16, change `../results` to `/kaggle/working`.
-
-Set the single input folder:
-
-```text
-/kaggle/input/competitions/penalty-kick-outcome-prediction-challenge
-```
-
-### Colab
-
-Upload `train.csv` and `test.csv` to `/content`; set `DATA_DIR = "/content"`. For exports in 15/16, use `/content` instead of `../results`.
-
-### Extra libraries in hosted runtimes
-
-Lessons 10–16 can use XGBoost/CatBoost; Lesson 11 also uses Optuna. If your Kaggle/Colab kernel does not have them, run this in a new notebook cell before the imports:
-
-```python
-%pip install xgboost==3.4.1 catboost==1.2.10 optuna==5.0.0 ipywidgets==8.1.9
-```
-
-For local use, install `requirements.txt` inside your virtual environment instead. Native CatBoost category handling is an alternative; these saved comparisons use the same prepared inputs for every model.
-
 ## Data and reproducibility
 
 Competition data is not redistributed in this repository. Download it from Kaggle after accepting the competition rules.
@@ -210,5 +227,3 @@ The complete pipeline keeps 20% of labeled rows for validation; all model choice
 ### Validation references
 
 [Scikit-learn: selection versus independent evaluation](https://scikit-learn.org/stable/auto_examples/model_selection/plot_nested_cross_validation_iris.html) · [Imbalanced-learn: resampling leakage](https://imbalanced-learn.org/stable/common_pitfalls.html)
-
-
