@@ -2,11 +2,17 @@
 
 An ML learning path built around a [competition I created](https://www.kaggle.com/competitions/penalty-kick-outcome-prediction-challenge). Predict whether a penalty is **scored (1)** or **missed (0)**.
 
-**Complete project:** [16 · Complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) — one fixed model, validation, and submission, followed by an optional assumption-based cutoff example. No repeated search.
+**Complete project:** [16 · Revised complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) — one fixed model, a reproducible training-only cutoff search, validation, and submission. An optional assumption-based cutoff example stays separate.
 
 ## What makes this beginner-friendly?
 
-Each lesson: detect the problem → apply several strategies → compare on the same splits → explain other alternatives → carry one justified choice forward. Saved outputs come from the revised code's execution, not earlier notebook versions.
+Each lesson: detect the problem → apply several strategies → compare on the same splits → carry one justified choice forward. Earlier lessons retain their experiments and saved outputs. Notebook 16 has been rerun end-to-end on Kaggle, including its training-only cutoff search.
+
+Every notebook follows ten short sections: **problem, importance, key concepts, intuitive example, methods, retained choices, setup, experiments, results and decision, takeaways and next step**. The roadmap uses a learning route instead of a method comparison; final notebooks describe their execution plan. There is one Markdown summary of earlier decisions, not repeated explanations between code cells. EDA and diagnostic lessons do not invent an F1 winner.
+
+Each runnable notebook has **one reusable Setup code cell** containing its repeated imports, loading, earlier preparation, and fold helpers. **Run it, then skip to the lesson: beginners do not need to study all its lines.** New topic-specific methods stay visible under **Experiments**. The roadmap has no executable setup. Run Setup before Experiments, or use **Run all**. Setup is marked collapsed where supported; GitHub may show it expanded. Every notebook remains independent, and PCA/SMOTE illustrations are embedded.
+
+The regrouped Setup cells in earlier lessons were checked separately without fitting models. Notebook 16 completed a fresh Kaggle run on **16 October 2026**: all 11 lesson code cells, three plots, and both exports. Its three-fold training predictions and 0.01–0.99 cutoff search reproduced **0.47**. Validation answers and competition-test answers do not select this cutoff.
 
 ## Pipeline
 
@@ -53,7 +59,7 @@ selection, sampling, calibration, and tuning stay inside those training splits. 
 | 12 · Ensembles | Single learner, average two, average three, weighted average | Hard voting, bagging, stacking |
 | 13 · Probabilities | Original, sigmoid/isotonic calibration, training-selected cutoff | Brier/log loss, recall/cost-based cutoffs |
 | 14 · Errors | Confusion matrix, both error types, confident mistakes, subgroups, probability buckets, permutation importance | Partial dependence, error clustering, SHAP |
-| 15–16 · Final pipeline | Only the selected recipe, fixed settings, final validation and test predictions | No repeated method searches |
+| 15–16 · Final pipeline | Original fixed recipe (15); revised fixed model with training-only cutoff selection, validation and test predictions (16) | Optional assumed-rate example stays separate; no repeated model search |
 
 
 Usually 3–6 strategies are tested in a handling lesson. Feature engineering has **20 explained candidates**, tested as five feature sets.
@@ -81,7 +87,16 @@ EDA and error analysis use complementary diagnostics, rather than inventing a wi
 | Probabilities · 13 | Original probabilities |
 | Decision cutoff · 13 | 0.50 |
 
-Notebook 15 keeps this original recipe. Notebook 16 updates missing-value handling and the cutoff after a training-only comparison: keep and impute incomplete rows, then use cutoff 0.47. A winning step is best in its particular comparison, not a guarantee of the globally best combination; small score gaps may be noise.
+These are two deliberately different recipes, not interchangeable copies:
+
+| Configuration | Notebook 15: original | Notebook 16: revised |
+|---|---|---|
+| Incomplete training rows | Drop them during fitting | Keep them; fill numerical median / categorical mode |
+| Normal decision cutoff | Fixed 0.50 from the original lessons | Select using training-only three-fold predictions; earlier run: 0.47 |
+| Model and other preparation | Selected CatBoost recipe | Same model settings, features, selection, scaling, encoding and outlier flag |
+| Purpose | Short refit/export of original lesson decisions | Reproduce revised cutoff selection, validate, refit/export |
+
+A winning step is best in its particular comparison, not a guarantee of the globally best combination; small score gaps may be noise.
 
 ## Results
 
@@ -103,7 +118,7 @@ Rerun on 15 October 2026. These are the measured model-comparison results from L
 
 Original recipe on the 4,000-row validation set: **F1 0.9395**, **accuracy 0.9457**, **ROC-AUC 0.9901**. This is not a Kaggle leaderboard score.
 
-**Updated complete pipeline (Notebook 16):** keep and impute incomplete rows; training-selected cutoff **0.47**. On the same validation rows: **F1 0.9414**, **accuracy 0.9470**, **ROC-AUC 0.9905**. These rows have been inspected before, so this is not a fresh independent benchmark. Only changed code was rerun.
+**Revised complete pipeline (Notebook 16), complete Kaggle run on 16 October 2026:** keep and impute incomplete rows; training-selected cutoff **0.47**. Training out-of-fold F1 at the selected cutoff: **0.9476** (a selection score, not independent evaluation). On the same validation rows: **F1 0.9414**, **accuracy 0.9470**, **ROC-AUC 0.9905**. These rows have been inspected before, so this rerun is not a fresh independent benchmark.
 
 Notebook 16 ends with an optional **50% expected-goal-rate example**. It labels the upper half of test probabilities as goals. This is an assumption, not a rate measured from the unlabeled test file or selected by training validation. Use such an adjustment only with a credible, independent reason for the expected rate. Otherwise, keep the training-selected cutoff. This example changes predictions, not the model or its probabilities, and is not ordinary class balancing.
 
@@ -132,8 +147,8 @@ The dataset was explored in earlier project versions. This split protects the re
 | 12 | [Ensembling](notebooks/12_Ensembling.ipynb) | Can complementary models improve one another? |
 | 13 | [Calibration and thresholds](notebooks/13_Calibration_and_Thresholds.ipynb) | Are probabilities reliable, and should the cutoff remain 0.5? |
 | 14 | [Interpretation and error analysis](notebooks/14_Interpretation_and_Error_Analysis.ipynb) | Why does the model make its predictions and mistakes? |
-| 15 | [Selected pipeline: short version](notebooks/15_Final_Frozen_Solution.ipynb) | How do the basics fit together? |
-| 16 | [Complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) | How do we run the chosen recipe without repeating the search? |
+| 15 | [Original selected pipeline: short version](notebooks/15_Final_Frozen_Solution.ipynb) | How do we refit and export the original lesson recipe? |
+| 16 | [Revised complete ML pipeline](notebooks/16_Complete_ML_Pipeline.ipynb) | How do we select a training-only cutoff, validate, refit and export the revised recipe? |
 
 Lesson comparisons stay within the training part. They are teaching experiments, not independent final performance claims.
 Outlier plots flag unusual values; they do not prove errors. Balancing is tested, not assumed helpful for the mild 55/45 imbalance.
@@ -152,7 +167,7 @@ The notebooks are self-contained. No generic folder search, ZIP loader, or extra
    .venv\Scripts\python -m pip install -r requirements.txt
    ```
 
-   The saved run used Python 3.12.14 and the pinned versions in `requirements.txt`.
+   Earlier saved lessons used Python 3.12.14 and the pinned versions in `requirements.txt`. Notebook 16's latest Kaggle run used Python 3.13.15; its actual library versions are recorded in the notebook metadata.
 
 3. Open a notebook, select that environment, and run all cells. Use `notebooks/` as the working directory.
 4. Notebooks 15 and 16 save predictions to the ignored `results/` folder.
